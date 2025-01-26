@@ -47,7 +47,7 @@ def login():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    ratings = RestaurantRating.query.filter_by(user_id=current_user.id).order_by(RestaurantRating.visit_date.desc()).all()
+    ratings = RestaurantRating.query.filter_by(user_id=current_user.id).order_by(RestaurantRating.meal_date.desc()).all()
     total_ratings = len(ratings)
     avg_rating = sum(rating.rating for rating in ratings) / total_ratings if ratings else 0
     
