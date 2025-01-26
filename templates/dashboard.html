@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>TasteRanker - Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .stats {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .ratings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ratings-table th, .ratings-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .ratings-table th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-primary {
+            background-color: #28a745;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Welcome to TasteRanker. You are now logged in, {{ current_user.username }}. </h1>
-    <a href="{{url_for('logout')}}">Logout</a>
-</body>
+    <div class="header">
+        <h1>Welcome, {{ username }}!</h1>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+    </div>
 
+    <div class="stats">
+        <h3>Your Stats</h3>
+        <p>Total Restaurants Rated: {{ total_ratings }}</p>
+        <p>Average Rating: {{ avg_rating }}/5.0</p>
+    </div>
+
+    <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h2>Your Restaurant Ratings</h2>
+            <a href="{{ url_for('add_rating') }}" class="btn btn-primary">Add New Rating</a>
+        </div>
+
+        {% if ratings %}
+            <table class="ratings-table">
+                <thead>
+                    <tr>
+                        <th>Restaurant</th>
+                        <th>Cuisine</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rating in ratings %}
+                    <tr>
+                        <td>{{ rating.restaurant_name }}</td>
+                        <td>{{ rating.cuisine_type }}</td>
+                        <td>{{ rating.rating }}/5</td>
+                        <td>{{ rating.review_text or 'No review' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You haven't added any restaurant ratings yet.</p>
+        {% endif %}
+    </div>
+</body>
 </html>

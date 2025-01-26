@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import date
 
 db = SQLAlchemy()
 
@@ -16,7 +16,7 @@ class RestaurantRating(db.Model):
     restaurant_name = db.Column(db.String(100), nullable=False)
     rating = db.Column(db.Integer, nullable=False) 
     cuisine_type = db.Column(db.String(50), nullable=False)
-    meal_date = db.Column(db.DateTime, default=datetime.utcnow) 
+    meal_date = db.Column(db.Date, default=date.today)
     review = db.Column(db.Text, nullable=True) 
     calories = db.Column(db.Integer, nullable=True)  
     is_anonymous = db.Column(db.Boolean, default=False) #adding anomylity

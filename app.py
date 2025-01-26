@@ -1,12 +1,10 @@
 from flask import Flask, render_template, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import login_user, LoginManager, login_required, logout_user, current_user
 import os
 from dotenv import load_dotenv
-
 from flask_bcrypt import Bcrypt
-from models import User, db
-from forms import RegisterForm, LoginForm
+from models import User, RestaurantRating, db
+from forms import RegisterForm, LoginForm, RestaurantRatingForm
 
 load_dotenv()
 
@@ -49,7 +47,16 @@ def login():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    ratings = RestaurantRating.query.filter_by(user_id=current_user.id).order_by(RestaurantRating.visit_date.desc()).all()
+    total_ratings = len(ratings)
+    avg_rating = sum(rating.rating for rating in ratings) / total_ratings if ratings else 0
+    
+    return render_template('dashboard.html', 
+                           username=current_user.username, 
+                           ratings=ratings,
+                           total_ratings=total_ratings,
+                           avg_rating=round(avg_rating, 2))
+
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -71,6 +78,26 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html', form=form)
+
+@app.route('/add_rating', methods=['GET', 'POST'])
+@login_required
+def add_rating():
+    form = RestaurantRatingForm()
+    if form.validate_on_submit():
+        new_rating = RestaurantRating(
+            user_id=current_user.id,
+            restaurant_name=form.restaurant_name.data,
+            rating=form.rating.data,
+            cuisine_type=form.cuisine_type.data,
+            meal_date = form.meal_date.data, 
+            review =form.review.data,
+            calories = form.calories.data,
+            is_anonymous = form.is_anonymous.data
+        )
+        db.session.add(new_rating)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template('add_rating.html', form=form)
 
 if __name__ == '__main__':
 

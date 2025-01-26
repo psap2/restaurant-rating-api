@@ -2,7 +2,7 @@
 from models import User, db
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, IntegerField, BooleanField
 from wtforms.validators import InputRequired, Length, ValidationError, NumberRange, Optional
-from wtforms.fields import DateTimeField
+from wtforms.fields import DateField
 from flask_wtf import FlaskForm
 
 class RegisterForm(FlaskForm):
@@ -45,5 +45,9 @@ class RestaurantRatingForm(FlaskForm):
     review = TextAreaField('Review', validators=[Optional()])
     calories = IntegerField('Calories', validators=[Optional()])
     is_anonymous = BooleanField('Post Anonymously', default=False)
-    meal_date = DateTimeField('Meal Date', format='%Y-%m-%d %H:%M:%S', validators=[Optional()])
+    meal_date = DateField(
+        'Meal Date', 
+        format='%Y-%m-%d', 
+        validators=[Optional()]
+    )
     submit = SubmitField('Submit Rating')
