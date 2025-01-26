@@ -1,8 +1,9 @@
 
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
-from flask_wtf import FlaskForm
 from models import User, db
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, IntegerField, BooleanField
+from wtforms.validators import InputRequired, Length, ValidationError, NumberRange, Optional
+from wtforms.fields import DateTimeField
+from flask_wtf import FlaskForm
 
 class RegisterForm(FlaskForm):
     username = StringField(validators=[
@@ -29,3 +30,20 @@ class LoginForm(FlaskForm):
                              InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
 
     submit = SubmitField('Login')
+
+class RestaurantRatingForm(FlaskForm):
+    restaurant_name = StringField('Restaurant Name', validators=[InputRequired()])
+    cuisine_type = SelectField('Cuisine Type', choices=[
+        ('american', 'American'), 
+        ('italian', 'Italian'), 
+        ('chinese', 'Chinese'), 
+        ('mexican', 'Mexican'), 
+        ('indian', 'Indian'), 
+        ('other', 'Other')
+    ], validators=[InputRequired()])
+    rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
+    review = TextAreaField('Review', validators=[Optional()])
+    calories = IntegerField('Calories', validators=[Optional()])
+    is_anonymous = BooleanField('Post Anonymously', default=False)
+    meal_date = DateTimeField('Meal Date', format='%Y-%m-%d %H:%M:%S', validators=[Optional()])
+    submit = SubmitField('Submit Rating')

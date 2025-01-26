@@ -12,15 +12,16 @@ class User(db.Model, UserMixin):
 
 class RestaurantRating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key to the User model
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # foreign key to the user model
     restaurant_name = db.Column(db.String(100), nullable=False)
     rating = db.Column(db.Integer, nullable=False) 
     cuisine_type = db.Column(db.String(50), nullable=False)
-    meal_date = db.Column(db.DateTime, default=datetime.utcnow)  # Defaults to current time
-    review = db.Column(db.Text, nullable=True)  # Optional review text
-    calories = db.Column(db.Integer, nullable=True)  # Optional nutritional data
+    meal_date = db.Column(db.DateTime, default=datetime.utcnow) 
+    review = db.Column(db.Text, nullable=True) 
+    calories = db.Column(db.Integer, nullable=True)  
+    is_anonymous = db.Column(db.Boolean, default=False) #adding anomylity
 
-    user = db.relationship('User', backref='ratings', lazy=True)  # Relationship to the User model
+    user = db.relationship('User', backref='ratings', lazy=True)  # relationship to the User model
 
 def init_app(app):
     db.init_app(app)
