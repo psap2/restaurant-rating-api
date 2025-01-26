@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 import os
 from dotenv import load_dotenv
 
@@ -19,6 +19,8 @@ bcrypt = Bcrypt(app)
 db.init_app(app)
 
 
+
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -30,8 +32,9 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
     return render_template('home.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -40,7 +43,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for('dashboard'))
     return render_template('login.html', form=form)
 
