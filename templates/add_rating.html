@@ -1,56 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TasteRanker - Add Rating</title>
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        line-height: 1.6;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    .form-group input, 
-    .form-group select, 
-    .form-group textarea {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    .error {
-        color: red;
-        font-size: 0.8em;
-    }
-    .btn {
-        display: inline-block;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-    .btn-primary {
-        background-color: #28a745;
-    }
-    .btn-secondary {
-        background-color: #6c757d;
-        margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}TasteRanker - Add Rating{% endblock %}
+
+{% block content %}
+<div class="content">
   <h1>Add Restaurant Rating</h1>
 
   <form method="POST" action="{{ url_for('add_rating') }}">
@@ -153,5 +106,5 @@
   </form>
 
   <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
-</body>
-</html>
+</div>
+{% endblock %}

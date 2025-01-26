@@ -57,8 +57,6 @@ def dashboard():
                            total_ratings=total_ratings,
                            avg_rating=round(avg_rating, 2))
 
-
-
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
@@ -98,6 +96,12 @@ def add_rating():
         db.session.commit()
         return redirect(url_for('dashboard'))
     return render_template('add_rating.html', form=form)
+
+@app.route('/public_ratings', methods=['GET'])
+def all_ratings():
+    all_ratings = RestaurantRating.query.order_by(RestaurantRating.meal_date.desc()).all()
+    return render_template('public_ratings.html', ratings=all_ratings)
+
 
 if __name__ == '__main__':
 
