@@ -20,4 +20,23 @@
 `cd restaurant-rating-api`
 ##### Activate Virtual Environment
 `python3 -m venv env`
+
 `source env/bin/activate`
+
+##### Install dependencies
+`pip install -r requirements.txt`
+
+##### Set Up Environment Variables
+- Create a `.env` file in your root directory. And add configuration key.
+
+`SECRET_KEY=your_secret_key_here`
+
+##### Initialize database in python shell
+```
+from app import app, db
+with app.app_context():
+db.create_all()
+```
+
+##### Run application
+`python3 app.py`
