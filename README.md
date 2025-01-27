@@ -99,3 +99,28 @@ db.create_all()
     - **Parameters**: None
     - **Response**: Renders plain_display.html with cuisine types and review counts.
 
+### Testing the API on Localhost Using a Web Browser
+
+##### Start the flask application
+`python3 app.py`
+
+##### Test endpoints
+- **Home (`/`)**
+    ***Steps***:
+    1. Open your web browser and go to `http://127.0.0.1:5000/`.
+    2. If logged in, you will be redirected to `/dashboard`. Otherwise, the home page will load with options to login/register.
+
+- **Login (`/login`)**
+    ***Steps***:
+    1. Go to `http://127.0.0.1:5000/login` Also done by clicking on login button on home page.
+    2. Enter a valid `username` and `password` for an existing user.
+    3. Submit the form.
+    4. If successful, you will be redirected to `/dashboard`. If unsuccessful, the page will reload with error messages.
+    
+- **Dashboard (`/dashboard`)**
+    - ***Steps***:
+    1. Navigate to `http://127.0.0.1:5000/dashboard` (authentication required).
+    2. View your personalized dashboard with your ratings.
+    3. **Optional**: Test the search functionality by adding a query parameter to the URL:
+        - Example: `http://127.0.0.1:5000/dashboard?search=pizza` or using the search functionality on the page.
+        - This filters the dashboard to show results matching the search term.
