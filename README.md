@@ -12,7 +12,7 @@
 - **Flask-Login**: Manages user authentication, making it easier to handle user sessions and protect routes and sensitive personal information. 
 - **Flask-Bcrypt**: Hashing capabilities to securely store user passwords.
 
-## Testing our application
+## Starting up application
 
 ##### Clone the repository:
 `git clone https://github.com/psap2/restaurant-rating-api`
@@ -40,3 +40,62 @@ db.create_all()
 
 ##### Run application
 `python3 app.py`
+
+## Endpoints
+
+1. **Home (/)**
+    - **Method**: GET
+    - **Description**: Redirects to home page, or user dashboard if user is already authenticated from session token. 
+    - **Parameters**: None
+    - **Response**: Redirects to /dashboard if authenticated, otherwise renders home.html.
+2. **Register (/register)**
+    - **Method**: GET, POST
+    - **Description**: Handles new user registration.
+    - **Parameters**: `username` (string), `password` (string) from RegisterForm.
+    - **Response**: Redirects to /login on successful registration, otherwise renders register.html with Registerform(GET).
+3. **Login (/login)**
+    - **Method**: GET, POST
+    - **Description**: Handles user login.
+    - **Parameters**: `username` (string), `password` (string) from LoginForm.
+    - **Response**: Redirects to /dashboard on successful login, otherwise renders login.html with form(GET).
+4. **Dashboard (/dashboard)**
+    - **Method**: GET
+    - **Description**: Displays user's dashboard with restaurant ratings.
+    - **Parameters**: Optional query parameter `search` (string)
+    - **Response**: Renders dashboard.html with ratings and user details. And optionally returns user's search query rating results.
+5. **Logout (/logout)**
+    - **Method**: GET
+    - **Description**: Logs out the current user.
+    - **Parameters**: None
+    - **Response**: Redirects to /login.
+6. **Add Rating (/add_rating)**
+    - **Method**: GET, POST
+    - **Description**: Allows authenticated users to add a restaurant rating.
+    - **Parameters**: Form sumbission with fields for `restaurant_name`, `rating`, `cuisine_type`, `meal_date`, `review`, `calories`, `is_anonymous` from RestaurantRatingForm.
+    - **Response**: Redirects to /dashboard on successful entry, otherwise renders add_rating.html with RestaurantRatingForm (GET).
+7. **Public Ratings (/public_ratings)**
+    - **Method**: GET
+    - **Description**: Displays all ratings based on search and filters.
+    - **Parameters**: Optional query parameters `search` by keywords, `cuisine_type`, `min_rating`.
+    - **Response**: Renders public_ratings.html with optional filtered ratings from all resturant ratings.
+8. **Edit Rating (/edit_rating/<rating_id>)**
+    - **Method**: GET, POST
+    - **Description**: Allows users to edit an existing rating.
+    - **Parameters**: `rating_id` (int) from URL, form data same as old rating.
+    - **Response**: Redirects to /dashboard on successful update, otherwise renders edit_rating.html (GET).
+9. **Display Average Ratings (/aggregated/display/average_ratings)**
+    - **Method**: GET
+    - **Description**: Aggregates and displays average ratings per cuisine type.
+    - **Parameters**: None
+    - **Response**: Renders plain_display.html with average ratings.
+10. **Top Restaurants by Month (/aggregated/top_restaurants/<user_id>)**
+    - **Method**: GET
+    - **Description**: Displays the highest rated restaurants per month for the user.
+    - **Parameters**: `user_id` (int) retrieved from `current_user` from the session.
+    - **Response**: Renders plain_display.html with results.
+11. **Popular Cuisine Types (/aggregated/popular_cuisines)**
+    - **Method**: GET
+    - **Description**: Lists the most reviewed cuisine types.
+    - **Parameters**: None
+    - **Response**: Renders plain_display.html with cuisine types and review counts.
+
