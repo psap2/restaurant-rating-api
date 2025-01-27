@@ -105,13 +105,14 @@ db.create_all()
 `python3 app.py`
 
 ##### Test endpoints
+
 - **Home (`/`)**
-    ***Steps***:
+    - ***Steps***:
         1. Open your web browser and go to `http://127.0.0.1:5000/`.
         2. If logged in, you will be redirected to `/dashboard`. Otherwise, the home page will load with options to login/register.
 
 - **Login (`/login`)**
-    ***Steps***:
+    - ***Steps***:
         1. Go to `http://127.0.0.1:5000/login`. Also done by clicking on login button on home page.
         2. Enter a valid `username` and `password` for an existing user.
         3. Submit the form.
