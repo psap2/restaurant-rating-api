@@ -22,20 +22,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-#help get location of resturant based on geo location
-def geocode(zip_code):
-    api_key = os.getenv('GOOGLE_MAPS_KEY')
-    base_url = "https://maps.googleapis.com/maps/api/geocode/json"
-    params = {'address': zip_code, 'key': api_key}
-    response = requests.get(base_url, params=params)
-    if response.status_code == 200:
-        results = response.json()['results']
-        if results:
-            location = results[0]['geometry']['location']
-            return location['lat'], location['lng']
-    return None, None
-
-
 
 @login_manager.user_loader
 def load_user(user_id):
