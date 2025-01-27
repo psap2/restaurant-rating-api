@@ -11,3 +11,13 @@
 - **SQLAlchemy**: Allowed to query and interact with DB using Python instead of SQL. 
 - **Flask-Login**: Manages user authentication, making it easier to handle user sessions and protect routes and sensitive personal information. 
 - **Flask-Bcrypt**: Hashing capabilities to securely store user passwords.
+
+## Testing our application
+
+##### Clone the repository:
+`git clone https://github.com/psap2/restaurant-rating-api`
+##### Naviagte to directory
+`cd restaurant-rating-api`
+##### Activate Virtual Environment
+`python3 -m venv env`
+`source env/bin/activate`
