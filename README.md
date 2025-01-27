@@ -111,6 +111,13 @@ db.create_all()
         1. Open your web browser and go to `http://127.0.0.1:5000/`.
         2. If logged in, you will be redirected to `/dashboard`. Otherwise, the home page will load with options to login/register.
 
+- **Register (`/register`)**
+    - ***Steps***:
+        1. Go to `http://127.0.0.1:5000/register`. Also done by clicking on register button on home page.
+        2. Enter a valid `username` and `password` to create a new user.
+        3. Submit the form.
+        4. If successful, you will be redirected to `/login`. If unsuccessful, the page will reload with error messages.
+
 - **Login (`/login`)**
     - ***Steps***:
         1. Go to `http://127.0.0.1:5000/login`. Also done by clicking on login button on home page.
@@ -154,6 +161,12 @@ db.create_all()
             - Additionally, this can be tested by simply clicking edit on the rating you want to edit in your dashboard.
         2. Modify the fields in the form and submit.
         3. You will be redirected to `/dashboard` with the updated rating displayed.
+
+- **Logout (`/logout`)**
+    - ***Steps***:
+        1. Go to `http://127.0.0.1:5000/logout`
+            - Additionally, this can be tested by simply clicking logout on the navigation bar.
+        2. You will be redirected to `/login`.
 
 ##### **Aggregation Endpoints**
 
