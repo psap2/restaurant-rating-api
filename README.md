@@ -107,20 +107,68 @@ db.create_all()
 ##### Test endpoints
 - **Home (`/`)**
     ***Steps***:
-    1. Open your web browser and go to `http://127.0.0.1:5000/`.
-    2. If logged in, you will be redirected to `/dashboard`. Otherwise, the home page will load with options to login/register.
+        1. Open your web browser and go to `http://127.0.0.1:5000/`.
+        2. If logged in, you will be redirected to `/dashboard`. Otherwise, the home page will load with options to login/register.
 
 - **Login (`/login`)**
     ***Steps***:
-    1. Go to `http://127.0.0.1:5000/login` Also done by clicking on login button on home page.
-    2. Enter a valid `username` and `password` for an existing user.
-    3. Submit the form.
-    4. If successful, you will be redirected to `/dashboard`. If unsuccessful, the page will reload with error messages.
+        1. Go to `http://127.0.0.1:5000/login`. Also done by clicking on login button on home page.
+        2. Enter a valid `username` and `password` for an existing user.
+        3. Submit the form.
+        4. If successful, you will be redirected to `/dashboard`. If unsuccessful, the page will reload with error messages.
     
 - **Dashboard (`/dashboard`)**
     - ***Steps***:
-    1. Navigate to `http://127.0.0.1:5000/dashboard` (authentication required).
-    2. View your personalized dashboard with your ratings.
-    3. **Optional**: Test the search functionality by adding a query parameter to the URL:
-        - Example: `http://127.0.0.1:5000/dashboard?search=pizza` or using the search functionality on the page.
-        - This filters the dashboard to show results matching the search term.
+        1. Navigate to `http://127.0.0.1:5000/dashboard` or through navigation bar on localhost (authentication required).
+        2. View your personalized dashboard with your ratings.
+        3. **Optional**: Test the search functionality by adding a query parameter to the URL:
+            - Example: `http://127.0.0.1:5000/dashboard?search={any_keywords}` or using the search functionality on the page.
+            - This filters the dashboard to show results matching the search term.
+
+- **Add Rating (`/add_rating`)**
+    - ***Steps***:
+        1. Go to `http://127.0.0.1:5000/add_rating` or through navigation bar on localhost (authentication required).
+        2. Fill out the form with:
+            - `restaurant_name`
+            - `rating`
+            - `cuisine_type`
+            - Optional fields: `meal_date`, `review`, `calories`, `is_anonymous`
+        3. Submit the form.
+        4. If successful, you will be redirected to `/dashboard` with the new rating displayed.
+
+- **Public Ratings (`/public_ratings`)**
+    - ***Steps***:
+        1. Navigate to `http://127.0.0.1:5000/public_ratings` or through navigation bar on localhost .
+        2. All public ratings will be displayed.
+        3. **Optional**: Test filtering by adding query parameters, or by using the search features on localhost:
+            - Example:
+            - `http://127.0.0.1:5000/public_ratings?search=fries` 
+            - `http://127.0.0.1:5000/public_ratings?cuisine_type=American`
+            - `http://127.0.0.1:5000/public_ratings?min_rating=4`
+        4. The results should match the applied filters.
+
+- **Edit Rating (`/edit_rating/<rating_id>`)**
+    - ***Steps***:
+        1. Replace `<rating_id>` with the ID of a rating you want to edit (e.g., `http://127.0.0.1:5000/edit_rating/1`).
+            - Additionally, this can be tested by simply clicking edit on the rating you want to edit in your dashboard.
+        2. Modify the fields in the form and submit.
+        3. You will be redirected to `/dashboard` with the updated rating displayed.
+
+##### **Aggregation Endpoints**
+
+- **Display Average Ratings (`/aggregated/display/average_ratings`)**
+    - ***Steps***:
+        1. Go to `http://127.0.0.1:5000/aggregated/display/average_ratings`.
+        2. The browser will display a list of cuisine types with their average ratings.
+
+- **Top Restaurants by Month (`/aggregated/top_restaurants/<user_id>`)**
+    - ***Steps****:
+        1. Replace `<user_id>` with a valid user ID (e.g., `http://127.0.0.1:5000/aggregated/top_restaurants/1`).
+        2. The browser will display the highest-rated restaurants per month for that user.
+
+- **Popular Cuisine Types (`/aggregated/popular_cuisines`)**
+    - **Steps**:
+        1. Go to `http://127.0.0.1:5000/aggregated/popular_cuisines`.
+        2. The browser will display a list of cuisine types with their review counts, sorted by popularity.
+
+---
