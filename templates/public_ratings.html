@@ -4,6 +4,13 @@
 
 {% block content %}
 <div class="content">
+  <div>
+    <form method="GET" action="{{ url_for('all_ratings') }}">
+        <input type="text" name="search" placeholder="Search by restaurant or cuisine" value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+    </form>
+  </div> 
+
   <h1>All Users' Ratings</h1>
 
   <table>

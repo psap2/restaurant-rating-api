@@ -20,6 +20,13 @@
     <a href="{{ url_for('add_rating') }}" class="btn btn-primary">Add New Rating</a>
 </div>
 
+<div style="margin-bottom: 10px;">
+    <form method="GET" action="{{ url_for('dashboard') }}">
+        <input type="text" name="search" placeholder="Search your ratings" value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
 {% if ratings %}
     <table class="ratings-table">
         <thead>
