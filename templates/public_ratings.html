@@ -6,8 +6,22 @@
 <div class="content">
   <div>
     <form method="GET" action="{{ url_for('all_ratings') }}">
-        <input type="text" name="search" placeholder="Search by restaurant or cuisine" value="{{ request.args.get('search', '') }}">
-        <button type="submit">Search</button>
+      <input type="text" name="search" placeholder="Search by keywords" value="{{ request.args.get('search', '') }}">
+      <!-- Cuisine Type Dropdown -->
+      <select name="cuisine_type">
+          <option value="">All Cuisines</option>
+          <option value="American">American</option>
+          <option value="Italian">Italian</option>
+          <option value="Chinese">Chinese</option>
+          <option value="Mexican">Mexican</option>
+          <option value="Indian">Indian</option>
+          <option value="Other">Other</option>
+      </select>
+      <!-- Rating Threshold -->
+      <input type="number" name="min_rating" placeholder="Minimum rating" min="1" max="5" value="{{ request.args.get('min_rating', '') }}" style="width: 100px;">
+   </form>
+    <form method="GET" action="{{ url_for('all_ratings') }}" style="display: inline;">
+      <button type="submit">Reset</button>
     </form>
   </div> 
 

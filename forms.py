@@ -34,12 +34,12 @@ class LoginForm(FlaskForm):
 class RestaurantRatingForm(FlaskForm):
     restaurant_name = StringField('Restaurant Name', validators=[InputRequired()])
     cuisine_type = SelectField('Cuisine Type', choices=[
-        ('american', 'American'), 
-        ('italian', 'Italian'), 
-        ('chinese', 'Chinese'), 
-        ('mexican', 'Mexican'), 
-        ('indian', 'Indian'), 
-        ('other', 'Other')
+        ('American', 'American'), 
+        ('Italian', 'Italian'), 
+        ('Chinese', 'Chinese'), 
+        ('Mexican', 'Mexican'), 
+        ('Indian', 'Indian'), 
+        ('Other', 'Other')
     ], validators=[InputRequired()])
     rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
     review = TextAreaField('Review', validators=[Optional()])
